@@ -19,18 +19,18 @@ services:
       - "traefik.http.routers.headscale.tls=true"
       - "traefik.http.services.headscale.loadbalancer.server.port=8080"
 
-   headscale-admin:
-      image: 'goodieshq/headscale-admin:latest'
-      container_name: 'headscale-admin'
-      restart: 'unless-stopped'
+  headscale-admin:
+    image: 'goodieshq/headscale-admin:latest'
+    container_name: 'headscale-admin'
+    restart: 'unless-stopped'
 
         # these are the labels for traefik reverse proxy
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.services.headscale-admin.loadbalancer.server.port: 80"
-        - "traefik.http.routers.headscale-admin.rule: Host(`headscale.yourdomain.com`) && PathPrefix(`/admin`)"
-        - "traefik.http.routers.headscale-admin.entrypoints: websecure"
-        - "traefik.http.routers.headscale-admin.tls=true"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.headscale-admin.loadbalancer.server.port: 80"
+      - "traefik.http.routers.headscale-admin.rule: Host(`headscale.yourdomain.com`) && PathPrefix(`/admin`)"
+      - "traefik.http.routers.headscale-admin.entrypoints: websecure"
+      - "traefik.http.routers.headscale-admin.tls=true"
 
 
   traefik:
@@ -49,7 +49,7 @@ services:
       - "--certificatesresolvers.myresolver.acme.email=you@youremail.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
 
-	## for testing
+  ## for testing
       #- "--log.level=DEBUG"
       #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
 
